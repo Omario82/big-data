@@ -5,3 +5,4 @@
 *.log
 ./environments/metastore_db
 ./environments/spark-warehaouse
+./environments/hive-data

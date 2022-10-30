@@ -1,3 +1,7 @@
 .idea/
 ./java-basics/target
 ./scala-spark/target
+*.iml
+*.log
+./environments/metastore_db
+./environments/spark-warehaouse

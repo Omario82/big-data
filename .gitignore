@@ -1,6 +1,7 @@
 .idea/
 ./java-basics/target
 ./scala-spark/target
+./oozie-project/target
 *.iml
 *.log
 ./environments/metastore_db

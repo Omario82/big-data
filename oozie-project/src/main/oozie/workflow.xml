@@ -1,0 +1,31 @@
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="SimpleWF">
+    <global>
+        <job-tracker>${job-tracker}</job-tracker>
+        <name-node>${namd-node}</name-node>
+        <job-xml>job1.xml</job-xml>
+        <configuration>
+            <property>
+                <name>mapred.job.queue.name</name>
+                <value>${queueName}</value>
+            </property>
+        </configuration>
+    </global>
+    <start to="echoA"/>
+    <action name="echoA">
+        <shell xmlns="uri:oozie:shell-action:0.2">
+            <exec>echo</exec>
+            <argument>"Hello World !"</argument>
+        </shell>
+        <ok to="echoB"/>
+        <error to="done"/>
+    </action>
+    <action name="echoB">
+        <shell xmlns="uri:oozie:shell-action:0.2">
+            <exec>echo</exec>
+            <argument>"Goodbye World !"</argument>
+        </shell>
+        <ok to="done"/>
+        <error to="done"/>
+    </action>
+    <end name="done"/>
+</workflow-app>

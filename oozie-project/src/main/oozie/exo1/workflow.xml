@@ -3,12 +3,6 @@
         <job-tracker>${job-tracker}</job-tracker>
         <name-node>${namd-node}</name-node>
         <job-xml>job1.xml</job-xml>
-        <configuration>
-            <property>
-                <name>mapred.job.queue.name</name>
-                <value>${queueName}</value>
-            </property>
-        </configuration>
     </global>
     <start to="echoA"/>
     <action name="echoA">

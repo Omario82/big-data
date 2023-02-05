@@ -1,0 +1,39 @@
+<workflow-app name="sqoop-workflow" xmlns="uri:oozie:workflow:0.1">
+    <start to="sqoop-action"/>
+    <action name="sqoop-action">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <command>import --connect jdbc:mysql://localhost/oozie_test --table Books --username user1 --password user1_pwd --target-dir /user/user1/my_external_table_user1 -m 1
+            </command>
+        </sqoop>
+        <ok to="shell-action"/>
+        <error to="error"/>
+    </action>
+    <action name="shell-action">
+        <shell xmlns="uri:oozie:shell-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <exec>echo</exec>
+            <argument>"Succeded !!"</argument>
+        </shell>
+        <ok to="myHiveAction"/>
+        <error to="error"/>
+    </action>
+    <action name="myHiveAction">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <job-xml>hive-site.xml</job-xml>
+            <script>hive.hql</script>
+        </hive>
+        <ok to="done"/>
+        <error to="error"/>
+    </action>
+    <kill name="error">
+        <message>Workflow failed, error
+            message[${wf:errorMessage(wf:lastErrorNode())}]
+        </message>
+    </kill>
+    <end name='done' />
+</workflow-app>

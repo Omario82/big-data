@@ -1,12 +1,13 @@
 <workflow-app xmlns="uri:oozie:workflow:0.5" name="SimpleWF">
     <global>
-        <job-tracker>${job-tracker}</job-tracker>
-        <name-node>${namd-node}</name-node>
-        <job-xml>job1.xml</job-xml>
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
     </global>
     <start to="echoA"/>
     <action name="echoA">
         <shell xmlns="uri:oozie:shell-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
             <exec>echo</exec>
             <argument>"Hello World !"</argument>
         </shell>
@@ -15,8 +16,10 @@
     </action>
     <action name="echoB">
         <shell xmlns="uri:oozie:shell-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
             <exec>echo</exec>
-            <argument>"Goodbye World !"</argument>
+            <argument>"Bye !"</argument>
         </shell>
         <ok to="done"/>
         <error to="done"/>
